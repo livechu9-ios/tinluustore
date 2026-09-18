@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Tin Lưu · Hỗ Trợ Kéo Tâm v10H</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+  <div class="header">
+    <div class="logo">
+      <div class="logo-mark">TL</div>
+      <div class="logo-text">
+        <span class="brand">TIN LƯU</span>
+        <span class="sub-brand">KÉO TÂM TOOL</span>
+      </div>
+    </div>
+    <div class="sub">
+      <span class="dot"></span>
+      <span id="versionText">v10H · ONLINE</span>
+    </div>
+  </div>
+
+  <div class="key-status inactive" id="keyStatus">
+    <span class="indicator"></span>
+    <span id="keyStatusText">CHƯA KÍCH HOẠT KEY</span>
+  </div>
+
+  <div class="section-title">Kết nối Game</div>
+
+  <div class="conn-status offline" id="connStatus">
+    <span class="cdot"></span>
+    <span id="connStatusText">CHƯA KẾT NỐI GAME</span>
+  </div>
+
+  <button class="btn success" onclick="connectGame()">
+    Kết Nối Game
+    <span class="badge" id="gameBadge">OFFLINE</span>
+  </button>
+
+  <button class="btn info" onclick="openManualConnect()">
+    Nhập Package Thủ Công
+  </button>
+
+  <div class="section-title" style="margin-top: 22px;">Chức năng</div>
+
+  <div class="func-item" onclick="toggleFunc('light_aim')">
+    <div class="left">
+      <div class="icon">1</div>
+      <div class="name">Nhẹ Tâm</div>
+    </div>
+    <span class="status off" id="st_light_aim">TẮT</span>
+  </div>
+
+  <div class="func-item" onclick="toggleFunc('fast_aim')">
+    <div class="left">
+      <div class="icon">2</div>
+      <div class="name">Nhau Tâm</div>
+    </div>
+    <span class="status off" id="st_fast_aim">TẮT</span>
+  </div>
+
+  <div class="func-item" onclick="toggleFunc('fix_all')">
+    <div class="left">
+      <div class="icon">3</div>
+      <div class="name">Fix All Game</div>
+    </div>
+    <span class="status off" id="st_fix_all">TẮT</span>
+  </div>
+
+  <div class="func-item" onclick="toggleFunc('fps_60')">
+    <div class="left">
+      <div class="icon">4</div>
+      <div class="name">FPS 60</div>
+    </div>
+    <span class="status off" id="st_fps_60">TẮT</span>
+  </div>
+
+  <div class="section-title" style="margin-top: 22px;">Hệ thống</div>
+
+  <button class="btn primary" onclick="openActivateKey()">
+    Kích Hoạt Key
+    <span class="badge" id="keyBadge">CHƯA CÓ</span>
+  </button>
+
+  <button class="btn info" onclick="openMobileConfig()">
+    Quản Lý MobileConfig
+  </button>
+
+  <button class="btn info" onclick="openZalo()">
+    Mua Key Admin · Zalo
+  </button>
+
+  <button class="btn info" onclick="openGetKey()">
+    Get Key Free 10H
+  </button>
+
+  <button class="btn info" onclick="openLog()">
+    Xem Log Hệ Thống
+  </button>
+
+  <button class="btn danger" onclick="exitTool()">
+    Thoát Tool
+  </button>
+
+  <div class="footer">
+    Admin: <a href="https://zalo.me/0776307956">0776307956</a><br>
+    Get Key: <a href="https://tintaogkey.blogspot.com">tintaogkey.blogspot.com</a>
+  </div>
+</div>
+
+<!-- MODAL KÍCH HOẠT KEY -->
+<div class="modal" id="modalKey">
+  <div class="modal-content">
+    <div class="modal-title"><span class="accent">KÍCH HOẠT</span> KEY</div>
+    <input type="text" id="inputKey" placeholder="TinLuu-XXXX-TIMESTAMP" autocomplete="off">
+    <button class="btn primary" onclick="submitKey()">Xác Nhận Key</button>
+    <button class="btn danger" onclick="closeModal('modalKey')">Đóng</button>
+    <div style="text-align:center;font-size:10px;color:var(--text-dim);margin-top:6px;">
+      Định dạng: TinLuu-DURATION-TIMESTAMP
+    </div>
+  </div>
+</div>
+
+<!-- MODAL MOBILECONFIG -->
+<div class="modal" id="modalConfig">
+  <div class="modal-content">
+    <div class="modal-title"><span class="accent">QUẢN LÝ</span> MOBILECONFIG</div>
+    <div class="config-list" id="configList"></div>
+    <input type="file" id="fileInput" accept=".mobileconfig" style="display:none" onchange="handleFileSelect(event)">
+    <button class="btn info" onclick="document.getElementById('fileInput').click()">
+      Chọn File MobileConfig
+    </button>
+    <button class="btn danger" onclick="closeModal('modalConfig')">Đóng</button>
+  </div>
+</div>
+
+<!-- MODAL NHẬP PACKAGE -->
+<div class="modal" id="modalPkg">
+  <div class="modal-content">
+    <div class="modal-title"><span class="accent">NHẬP</span> PACKAGE GAME</div>
+    <input type="text" id="inputPkg" placeholder="com.garena.game.kgvn" autocomplete="off">
+    <button class="btn success" onclick="connectManual()">Kết Nối</button>
+    <button class="btn danger" onclick="closeModal('modalPkg')">Đóng</button>
+    <div style="font-size:10px;color:var(--text-dim);text-align:center;line-height:1.8;margin-top:6px;">
+      Ví dụ:<br>
+      Liên Quân: com.garena.game.kgvn<br>
+      Free Fire: com.dts.freefireth<br>
+      PUBG: com.tencent.ig
+    </div>
+  </div>
+</div>
+
+<!-- MODAL LOG -->
+<div class="modal" id="modalLog">
+  <div class="modal-content">
+    <div class="modal-title"><span class="accent">LOG</span> HỆ THỐNG</div>
+    <div class="log-box" id="logBox"></div>
+    <button class="btn info" onclick="clearLog()" style="margin-top:10px">Xóa Log</button>
+    <button class="btn danger" onclick="closeModal('modalLog')">Đóng</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="script.js"></script>
+</body>
+</html>
